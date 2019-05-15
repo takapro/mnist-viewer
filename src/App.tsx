@@ -1,32 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { FetchState, fetchUrl, checkStates } from './fetchUrl';
 import ImageData from './ImageData';
 import ImageView from './ImageView';
 
-type State = 'loading' | 'failed' | ImageData[];
-
-const fetchUrl = (url: string, setState: (state: State) => void): void => {
-  fetch(url)
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw Error();
-      }
-    })
-    .then(json => setState(json))
-    .catch(() => setState('failed'));
-};
-
 const App = (props: { baseUrl: string }): JSX.Element => {
-  const [state, setState] = useState('loading' as State);
-  useEffect(() => fetchUrl(props.baseUrl + '/t10k-100.json', setState), []);
+  const [data, setData] = useState('loading' as FetchState<ImageData[]>);
+  useEffect(() => fetchUrl(props.baseUrl + '/t10k-100.json', setData), []);
+  const state: FetchState<[ImageData[]]> = checkStates(data);
   return (
     <>
       <h1>MNIST Viewer</h1>
       {state === 'loading' ? <p>Loading...</p> :
         state === 'failed' ? <p>Sorry, failed to load data.</p> :
           <div className='images'>
-            {state.map((each, index) => <ImageView key={index} data={each} />)}
+            {state[0].map((each, index) => <ImageView key={index} data={each} />)}
           </div>
       }
     </>
