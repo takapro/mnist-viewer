@@ -1,0 +1,27 @@
+{
+  "root": true,
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "@typescript-eslint/indent": ["error", 2],
+    "@typescript-eslint/explicit-function-return-type": ["warn",
+      { "allowExpressions": true }
+    ],
+    "@typescript-eslint/member-delimiter-style": ["warn",
+      {
+        "multiline":  { "delimiter": "semi",  "requireLast": true },
+        "singleline": { "delimiter": "comma", "requireLast": false }
+      }
+    ],
+    "semi": "error",
+    "eqeqeq": "error",
+    "no-console": "warn"
+  }
+}
