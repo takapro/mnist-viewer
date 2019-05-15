@@ -1,2 +1,4 @@
 node_modules
 public/bundle.js
+public/t10k*.json
+data

@@ -3,3 +3,14 @@
 #root {
   margin: 1em;
 }
+
+.images {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -10px;
+}
+
+.image {
+  margin-right: 10px;
+  text-align: center;
+}
