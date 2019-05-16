@@ -4,13 +4,20 @@
   margin: 1em;
 }
 
+.result {
+  text-align: center;
+}
+
 .images {
   display: flex;
   flex-wrap: wrap;
   margin-right: -10px;
 }
 
-.image {
+.images .image {
   margin-right: 10px;
+}
+
+.image {
   text-align: center;
 }
