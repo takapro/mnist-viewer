@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import SampleData, { sampleWidth, sampleHeight } from './SampleData';
 
 const gray = Array.from({ length: 256 }, (v, i) => `rgb(${i},${i},${i})`);
@@ -22,12 +22,13 @@ const drawData = (canvas: HTMLCanvasElement, data: SampleData | null): void => {
 };
 
 const SampleCell = (params: { data: SampleData | null, onClick?: () => void }): JSX.Element => {
-  const callback = (canvas: HTMLCanvasElement): void => {
-    canvas && drawData(canvas, params.data);
-  };
+  const canvasRef = useRef(null as HTMLCanvasElement | null);
+  useEffect(() => {
+    canvasRef.current && drawData(canvasRef.current, params.data);
+  }, [canvasRef, params.data]);
   return (
     <div className='image' onClick={params.onClick}>
-      <canvas width={sampleWidth} height={sampleHeight} ref={callback} /><br />
+      <canvas width={sampleWidth} height={sampleHeight} ref={canvasRef} /><br />
       <span>{params.data ? params.data.label : '-'}</span>
     </div>
   );
