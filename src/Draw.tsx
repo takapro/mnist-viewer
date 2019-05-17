@@ -48,7 +48,7 @@ const updateData = (canvas: HTMLCanvasElement, setData: (data: SampleData | null
       }
       return color / (scale * scale);
     });
-    setData({ image });
+    setData({ id: 'draw', image });
   }
 };
 

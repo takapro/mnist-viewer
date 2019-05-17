@@ -20,8 +20,8 @@ const Main = (props: { data: SampleData[], network: Network }): JSX.Element => {
       <SampleCell data={selection} />
       <pre className='result'>{result}</pre>
       <div className='images'>
-        {props.data.map((each, index) =>
-          <SampleCell key={index} data={each} onClick={() => setSelection(each)} />)}
+        {props.data.map(each =>
+          <SampleCell key={each.id} data={each} onClick={() => setSelection(each)} />)}
       </div>
     </>
   );

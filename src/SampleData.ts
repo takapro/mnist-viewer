@@ -2,8 +2,10 @@ export const sampleWidth = 28;
 export const sampleHeight = 28;
 
 interface SampleData {
+  id: string;
   image: string;
   label?: number;
+  result?: number;
 }
 
 export const normalizedImage = (data: SampleData): number[] => {

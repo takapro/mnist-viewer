@@ -20,13 +20,13 @@
 .images {
   display: flex;
   flex-wrap: wrap;
-  margin-right: -10px;
-}
-
-.images .image {
-  margin-right: 10px;
+  margin: 0 -5px;
 }
 
 .image {
   text-align: center;
+}
+
+.image canvas {
+  margin: 0 5px;
 }

@@ -23,10 +23,12 @@ const SampleCell = (params: { data: SampleData | null, onClick?: () => void }): 
   useEffect(() => {
     canvasRef.current && drawData(canvasRef.current, params.data);
   }, [canvasRef, params.data]);
+  const { label, result } = params.data || { label: undefined, result: undefined };
   return (
     <div className='image' onClick={params.onClick}>
       <canvas width={sampleWidth} height={sampleHeight} ref={canvasRef} /><br />
-      <span>{params.data && params.data.label !== undefined ? params.data.label : '-'}</span>
+      <span>{label !== undefined ? label : '-'}</span>
+      {result !== undefined && result !== label && <span> ({result})</span>}
     </div>
   );
 };
