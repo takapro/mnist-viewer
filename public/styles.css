@@ -17,6 +17,10 @@
   text-align: center;
 }
 
+.filter {
+  margin-bottom: 1em;
+}
+
 .images {
   display: flex;
   flex-wrap: wrap;
