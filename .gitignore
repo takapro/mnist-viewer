@@ -1,5 +1,6 @@
 node_modules
 public/bundle.js
-public/t10k*.json
-public/mnist_weight.json
-data
+public/*.json
+data/*.json
+data/*.gz
+data/*.pkl
