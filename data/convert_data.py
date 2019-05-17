@@ -22,7 +22,7 @@ with gzip.open(labelsFile, 'rb') as f:
 data = []
 for i in range(outputCount):
     image = base64.b64encode(images[i]).decode('utf-8')
-    data.append({ 'data': image, 'label': labels[i].item() })
+    data.append({ 'image': image, 'label': labels[i].item() })
 
 with open(outputFile, 'w') as f:
     json.dump(data, f, separators=(',', ':'))

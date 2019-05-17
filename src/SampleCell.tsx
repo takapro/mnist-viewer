@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import SampleData, { sampleWidth, sampleHeight } from './SampleData';
+import SampleData, { sampleWidth, sampleHeight, forEachPixel } from './SampleData';
 
 const gray = Array.from({ length: 256 }, (v, i) => `rgb(${i},${i},${i})`);
 
@@ -11,13 +11,10 @@ const drawData = (canvas: HTMLCanvasElement, data: SampleData | null): void => {
       context.fillRect(0, 0, canvas.width, canvas.height);
       return;
     }
-    const buffer = window.atob(data.data);
-    for (let y = 0; y < sampleWidth; y++) {
-      for (let x = 0; x < sampleHeight; x++) {
-        context.fillStyle = gray[buffer.charCodeAt(x + y * sampleWidth)];
-        context.fillRect(x, y, 1, 1);
-      }
-    }
+    forEachPixel(data, (x, y, pixel) => {
+      context.fillStyle = gray[pixel];
+      context.fillRect(x, y, 1, 1);
+    });
   }
 };
 

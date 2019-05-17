@@ -19,7 +19,7 @@ for (let i = 0; i < outputCount; i++) {
   const imageData = images.slice(imageOffset, imageOffset + imageSize);
   const label = labels[labelsHeader + i];
   data.push({
-    data: imageData.toString('base64'),
+    image: imageData.toString('base64'),
     label: label
   });
 }

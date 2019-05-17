@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import SampleData, { sampleWidth, sampleHeight } from './SampleData';
+import SampleData, { sampleWidth, sampleHeight, collectPixels } from './SampleData';
+
+const scale = 10;
 
 interface DrawState {
   pen: number;
@@ -24,7 +26,7 @@ const draw = (canvas: HTMLCanvasElement, state: DrawState, event: MouseEvent): v
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
     context.strokeStyle = state.pen ? 'black' : 'white';
-    context.lineWidth = state.pen || 50;
+    context.lineWidth = (state.pen || 4) * scale;
     context.lineCap = 'round';
     context.beginPath();
     context.moveTo(state.prevX || x, state.prevY || y);
@@ -38,20 +40,15 @@ const draw = (canvas: HTMLCanvasElement, state: DrawState, event: MouseEvent): v
 const updateData = (canvas: HTMLCanvasElement, setData: (data: SampleData | null) => void): void => {
   const context = canvas.getContext('2d');
   if (context) {
-    let buffer = '';
-    for (let y = 0; y < sampleHeight; y++) {
-      for (let x = 0; x < sampleWidth; x++) {
-        const imageData = context.getImageData(x * 10, y * 10, 10, 10);
-        let color = 0;
-        for (let i = 0; i < 10; i++) {
-          for (let j = 0; j < 10; j++) {
-            color += 255 - imageData.data[i * 40 + j * 4];
-          }
-        }
-        buffer += String.fromCharCode(color / 100);
+    const image = collectPixels((x, y) => {
+      const imageData = context.getImageData(x * scale, y * scale, scale, scale);
+      let color = 0;
+      for (let i = 0; i < scale * scale; i++) {
+        color += 255 - imageData.data[i * 4];
       }
-    }
-    setData({ data: window.btoa(buffer) });
+      return color / (scale * scale);
+    });
+    setData({ image });
   }
 };
 
@@ -77,7 +74,7 @@ const setupEvents = (canvas: HTMLCanvasElement, state: DrawState): void => {
 };
 
 const Draw = (props: { setData: (data: SampleData | null) => void }): JSX.Element => {
-  const [pen, setPen] = useState(20);
+  const [pen, setPen] = useState(2);
   const canvasRef = useRef(null as HTMLCanvasElement | null);
   const stateRef = useRef({ pen } as DrawState);
   useEffect(() => {
@@ -87,10 +84,10 @@ const Draw = (props: { setData: (data: SampleData | null) => void }): JSX.Elemen
   stateRef.current.setData = props.setData;
   return (
     <div className='draw'>
-      <canvas width={sampleWidth * 10} height={sampleHeight * 10} ref={canvasRef} /><br />
-      <label><input type='radio' name='pen' value='1' onClick={() => setPen(10)} />Thin</label>
-      <label><input type='radio' name='pen' value='2' onClick={() => setPen(20)} defaultChecked />Medium</label>
-      <label><input type='radio' name='pen' value='3' onClick={() => setPen(30)} />Thick</label>
+      <canvas width={sampleWidth * scale} height={sampleHeight * scale} ref={canvasRef} /><br />
+      <label><input type='radio' name='pen' value='1' onClick={() => setPen(1)} />Thin</label>
+      <label><input type='radio' name='pen' value='2' onClick={() => setPen(2)} defaultChecked />Medium</label>
+      <label><input type='radio' name='pen' value='3' onClick={() => setPen(3)} />Thick</label>
       <label><input type='radio' name='pen' value='0' onClick={() => setPen(0)} />Erase</label>
       <button onClick={() => {
         canvasRef.current && clear(canvasRef.current);

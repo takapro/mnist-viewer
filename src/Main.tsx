@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import Draw from './Draw';
-import SampleData from './SampleData';
+import SampleData, { normalizedImage } from './SampleData';
 import SampleCell from './SampleCell';
 import Network, { predict } from './Network';
 
 const calculate = (network: Network, data: SampleData): string => {
-  const buffer = window.atob(data.data);
-  const array = Array.from({ length: buffer.length }, (v, i) => buffer.charCodeAt(i) / 255.0);
-  const result = predict(network, array);
+  const result = predict(network, normalizedImage(data));
   const indexes = Array.from({ length: result.length }, (v, i) => i);
   indexes.sort((i, j) => result[j] - result[i]);
   return indexes.slice(0, 3).map(i => `${i}: ${result[i]}`).join('\n');
