@@ -29,7 +29,7 @@ const SampleCell = (params: { data: SampleData | null, onClick?: () => void }): 
   return (
     <div className='image' onClick={params.onClick}>
       <canvas width={sampleWidth} height={sampleHeight} ref={canvasRef} /><br />
-      <span>{params.data ? params.data.label : '-'}</span>
+      <span>{params.data && params.data.label !== undefined ? params.data.label : '-'}</span>
     </div>
   );
 };

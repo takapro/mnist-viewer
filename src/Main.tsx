@@ -18,7 +18,7 @@ const Main = (props: { data: SampleData[], network: Network }): JSX.Element => {
   const result = selection ? calculate(props.network, selection) : '---\n---\n---';
   return (
     <>
-      <Draw />
+      <Draw setData={setSelection} />
       <SampleCell data={selection} />
       <pre className='result'>{result}</pre>
       <div className='images'>

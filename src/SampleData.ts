@@ -3,7 +3,7 @@ export const sampleHeight = 28;
 
 interface SampleData {
   data: string;
-  label: number;
+  label?: number;
 }
 
 export default SampleData;
