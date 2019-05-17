@@ -4,6 +4,15 @@
   margin: 1em;
 }
 
+.draw {
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.draw canvas {
+  border: 1px solid gray;
+}
+
 .result {
   text-align: center;
 }

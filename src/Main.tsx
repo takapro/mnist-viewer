@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Draw from './Draw';
 import SampleData from './SampleData';
 import SampleCell from './SampleCell';
 import Network, { predict } from './Network';
@@ -17,6 +18,7 @@ const Main = (props: { data: SampleData[], network: Network }): JSX.Element => {
   const result = selection ? calculate(props.network, selection) : '---\n---\n---';
   return (
     <>
+      <Draw />
       <SampleCell data={selection} />
       <pre className='result'>{result}</pre>
       <div className='images'>

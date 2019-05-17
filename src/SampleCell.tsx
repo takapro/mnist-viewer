@@ -8,7 +8,7 @@ const drawData = (canvas: HTMLCanvasElement, data: SampleData | null): void => {
   if (context) {
     if (data === null) {
       context.fillStyle = gray[240];
-      context.fillRect(0, 0, sampleWidth, sampleHeight);
+      context.fillRect(0, 0, canvas.width, canvas.height);
       return;
     }
     const buffer = window.atob(data.data);
