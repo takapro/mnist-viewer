@@ -18,6 +18,7 @@ module.exports = (env, argv) => {
       rules: [
         { test: /\.tsx?$/, use: [{ loader: 'ts-loader' }] }
       ]
-    }
+    },
+    performance: { hints: false }
   };
 };
