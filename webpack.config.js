@@ -19,6 +19,9 @@ module.exports = (env, argv) => {
         { test: /\.tsx?$/, use: [{ loader: 'ts-loader' }] }
       ]
     },
-    performance: { hints: false }
+    performance: { hints: false },
+    devServer: {
+      static: [path.resolve(__dirname, 'public')]
+    }
   };
 };
